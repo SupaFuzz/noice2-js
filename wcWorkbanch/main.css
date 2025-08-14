@@ -1,0 +1,39 @@
+/* this disables scrolling on the body */
+html, body {
+    position: fixed;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+body {
+    font-size: 2vw;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgb(20, 22, 23);
+    color: rgb(216, 210, 210);
+}
+@font-face {
+   font-family: 'Comfortaa';
+   src: url('./gfx/Comfortaa.woff2') format("woff2");
+}
+
+:root {
+    /* electric orange monochrome */
+    --wc-progress-ui-color: rgb(237, 85, 59);
+    --wc-progress-ui-chart-color: rgb(237, 85, 59);
+    --wc-main-ui-header-color: rgb(237, 85, 59);
+    --wc-main-ui-user-prompt-text-color: rgb(237, 85, 59);
+    --wc-main-ui-user-prompt-alert-color: rgba(240, 240, 240,.8);
+    --wc-main-ui-user-prompt-alert-text-color: rgba(240, 240, 240,.8);
+    --wc-balloon-dialog-body-background-color: rgb(237, 85, 59);
+    --wc-balloon-dialog-box-shadow: .15em .15em .2em rgba(237, 85, 59, 0);
+    --wc-screen-holder-menu-button-color: rgb(237, 85, 59);
+    --wc-screen-holder-menu-button-hover-border-color: transparent;
+    --wc-screen-holder-menu-button-hover-color: rgb(237, 85, 59);
+    --wc-screen-holder-menu-button-select-border-color: transparent;
+    --wc-screen-holder-menu-button-select-background-color: rgba(237, 85, 59, .25);
+    --wc-screen-holder-menu-button-select-color: rgb(237, 85, 59);
+}

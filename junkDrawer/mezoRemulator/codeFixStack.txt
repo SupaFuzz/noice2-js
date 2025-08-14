@@ -1,0 +1,90 @@
+-> main: // MARK @ 195 -> initializedThread();
+
+* updateFormDefinitions()
+    * getAPI()
+        * api.getFormFields({ schema: <str>}
+
+            task set #1 (keep in mind we're keeping this dumb)
+            --------------------------------------------------
+            1) [DONE 1/16/25 @ 1835] create noiceMezoRemulatorAPI.js as a subclass of noiceMezoAPI
+
+            2) [DONE 1/16/25 @ 1835] noiceMezoRemulatorAPI.getFormFields()
+               this will call noiceMezoAPI.getFile() with a hardcoded name
+               of `formDefinition_${schema}`, get back json, parse it and return it
+
+            3) [DONE 1/16/25 @ 1933] write some kinda script to upload both versions of all the schemas
+               because I've tried doing this by hand and it's a royal pain in the arse
+
+            4) [DONE 1/16/25 @ 1945] refactor getAPI() to get the noiceMezoRemulatorAPI instance
+
+            5) [DONE 1/16/25 @ 1957] refactor updateFormDefinitions() logic on error condition
+               still install from the flatfile or whatever, its just that the
+               error codes n such will be different
+
+            6) [DONE 1/17/25 @ 1325] noicePGRestAPI.logout()
+               is presently a placeholder that does nothing but resolves as expected to keep
+               getAPI() working. We need to actually implement a logout function here lol
+
+                    OK so this is complicated somewhat
+                    this explains in principle how it can be accomplished
+                    https://docs.postgrest.org/en/v12/tutorials/tut1.html#bonus-topic-immediate-revocation
+
+                    it's going to boil down to this
+
+                        1) a table .. say ... basic_auth.user_logout
+                        2) an extra claim in the JWT ... something like sessionid: <guid>
+                        3) logout function writes a row to user_logout with the sessionid in the JWT
+                           that's literally the only thing you get. you call it, it pulls apart your
+                           JWT, finds the session id and writes it to the blacklist here with the
+                           timestamp the token was gonna expire on, so we know when to prune 'em
+                         4) basic_auth.check_token() barfs if the sessionid is in the blacklist
+                         5) pg_cron prunes the user_logout table every minute or whatever
+
+
+            LOH noiceMezoRemulatorThread.js // MARK @#198
+
+        * invokeMainLoop()
+            * syncAllForms()
+                * syncForm()
+                    * [OK] getFormMeta()
+                        * handleTransmits()
+                            * handleAPIWrite()
+                                * api.createTicket(<schema>, <fields>)
+                                * api.modifyTicket(<schema>, <ticket>, <fields>)
+
+
+                                task set #2 (emulate create and modify)
+                                --------------------------------------------------
+                                1) [DONE 1/21/25] generate formMaps for each of the forms in the config
+                                   ok, so we now have tableGenerator.js which spits out table
+                                   defs with indexes and constraints and the whole 9.
+
+                                   made all the tables they're ready for testing on the app side
+
+                                   * tables are named as their indexedDB datastore counterpart storeName
+                                   * columns are _<fieldID>, types have been mapped from the formDef to postgres
+                                   * indexes have been implemented on the table corresponding to indexes on the indexedDB dataStore
+
+
+                                   I'm not so sure we wanna use a form map like I was thinking for #2
+                                   the app will have the form def. we just translate everything to fieldIDs
+
+                                2) implement an input on noiceMezoRemulatorAPI maybe call it formMap
+                                   but it's a mapping like this:
+                                   {
+                                        <formName>: {
+                                            tableName: <str>
+                                            fieldMap: {
+                                                <fieldID>: <columnName>
+                                            }
+                                        }
+                                   }
+
+                                 3) [DONE 1/21/25] as part of 2, make all the tables for them too
+
+                                 4) [DONE 2/10/25] implement createTicket & modifyTicket emulations
+                                    using the formMap
+
+
+-- eventually but not here
+1) create remulator schema

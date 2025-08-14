@@ -1,0 +1,494 @@
+/*
+   theme vars for stuffs
+:root {
+    --theme-highlight-color: rgb(242, 177, 52);
+    --theme-error-color: rgb(230, 0, 161);
+    --theme-disabled-color: rgb(98, 109, 112);
+    --theme-disabled-background-color: rgb(81, 91, 94);
+    --theme-button-background: rgba(191, 191, 24, .8);
+    --theme-button-foreground: rgba(5, 15, 20, .8);
+
+    --theme-field-label: inherit;
+    --theme-field-font: inherit;
+    --theme-field-label-font: Comfortaa;
+    --theme-required-field-label: var(--theme-highlight-color);
+    --theme-field-background: radial-gradient(ellipse at top left, rgba(98, 109, 112, .25), rgba(98, 109, 112, .1), rgba(0, 0, 0, .25));
+    --theme-field-border: 2px solid rgba(204, 204, 204, .4);
+    --theme-field-foreground: rgb(204, 204, 204);
+    --theme-field-boxshadow: 2px 2px 2px rgba(20, 22, 23, .8) inset;
+    --theme-field-focus-background: transparent;
+    --theme-field-option-background: rgb(20, 22, 23);
+}
+*/
+:root {
+    /* global colors */
+    --theme-lightest-grey: rgb(240, 240, 240);
+    --theme-mid-grey: rgb(191,191,191);
+    --theme-dark-grey: rgb(53, 57, 59);
+    --theme-darkest-grey: rgb(36, 36, 36);
+    --theme-alt-grey: rgb(150, 167, 173);
+    --theme-almost-black: rgb(5, 15, 20);
+    --theme-leidos-purp: rgb(70, 7, 141);
+    --theme-alig-yellow: rgb(191, 191, 24);
+    --theme-gold: rgb(242, 177, 52);
+    --theme-gold-background: rgba(242, 177, 52, .35);
+    --theme-gold-border: 2px solid  rgba(242, 177, 52, .8);
+    --theme-default-background-color: rgb(20, 22, 23);
+    --theme-default-foreground-color: rgb(216, 210, 210);
+    --theme-default-modal-blocking-color: rgba(24, 35, 38, .75);
+    --theme-default-ui-surface: var(--theme-alig-yellow);
+    --theme-highlight-color: rgb(242, 177, 52);
+    --theme-error-color: rgb(230, 0, 161);
+    --theme-disabled-color: rgb(98, 109, 112);
+    --theme-disabled-background-color: rgb(81, 91, 94);
+    --theme-button-background: rgba(191, 191, 24, .8);
+    --theme-button-foreground: rgba(5, 15, 20, .8);
+    --wc-formelement-label-color: rgba(240,240,240, .8);
+}
+
+/* this disables scrolling on the body */
+html, body {
+    position: fixed;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-size: 2vw;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgb(20, 22, 23);
+    color: rgb(216, 210, 210);
+}
+@font-face {
+   font-family: 'Comfortaa';
+   src: url('./gfx/Comfortaa.woff2') format("woff2");
+}
+
+
+
+/*
+    global buttons
+*/
+button.btnBurger {
+    background: url('./gfx/buttons/burger.svg');
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+
+
+/*
+    noiceBalloonDialog
+*/
+.noiceBalloonDialog > * {
+   cursor: default;
+}
+.noiceBalloonDialog .dialog {
+   font-size: 				1em;
+}
+.noiceBalloonDialog .dialog .body {
+   overflow: auto;
+   border-left: 1px solid rgb(191, 191, 24);
+   border-right: 1px solid rgb(191, 191, 24);
+   border-bottom: 1px solid rgb(191, 191, 24);
+   background-color: rgb(191, 191, 24);
+   border-radius: .25em;
+}
+.noiceBalloonDialog[data-arrow='bottom'] .dialog:after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   right: 21px;
+   width: 0;
+   height: 0;
+   border: 10px solid transparent;
+   border-top-color: rgb(191, 191, 24);
+   border-bottom: 0;
+   margin-left: -10px;
+   margin-bottom: -10px;
+}
+.noiceBalloonDialog[data-arrow='bottomLeft'] .dialog:after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 21px;
+   width: 0;
+   height: 0;
+   border: 10px solid transparent;
+   border-top-color: rgb(191, 191, 24);
+   border-bottom: 0;
+   margin-left: -10px;
+   margin-bottom: -10px;
+}
+.noiceBalloonDialog[data-arrow='top'] .dialog:after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 21px;
+   width: 0;
+   height: 0;
+   border: 10px solid transparent;
+   border-bottom-color: rgb(191, 191, 24);
+   border-top: 0;
+   margin-left: -10px;
+   margin-top: -10px;
+}
+.noiceBalloonDialog[data-arrow='topMiddle'] .dialog:after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 50%;
+   width: 0;
+   height: 0;
+   border: 10px solid transparent;
+   border-bottom-color: rgb(191, 191, 24);
+   border-top: 0;
+   margin-left: -10px;
+   margin-top: -10px;
+}
+.noiceBalloonDialog[data-arrow='topRight'] .dialog:after {
+   content: '';
+   position: absolute;
+   top: 0;
+   right: 21px;
+   width: 0;
+   height: 0;
+   border: 10px solid transparent;
+   border-bottom-color: rgb(191, 191, 24);
+   border-top: 0;
+   margin-left: -10px;
+   margin-top: -10px;
+}
+.noiceBalloonDialog .dialogHeader {
+   background-color: rgb(191, 191, 24);
+   border: 0px;
+}
+.noiceBalloonDialog .dialogHeader .dialogHeaderTitle {
+   font-size: .66em;
+   padding: .25em .75em .25em .75em;
+   color: rgba(30, 32, 33, 66);
+   text-align: left;
+}
+.noiceBalloonDialog .dialogHeader .btnContainer {
+   width: 100%;
+   text-align: right;
+}
+.noiceBalloonDialog .dialogContent {
+   background-color:			rgb(30, 32, 33);
+   overflow-x:					hidden;
+   overflow-y: 				auto;
+   max-height: 				66vh;
+}
+
+
+
+
+
+/*
+    mainUI
+*/
+.mainUI .rootLayoutContainer .header {
+    background-color: rgb(5, 15, 20);
+    color: rgb(191, 191, 24);
+    border-bottom: .128em solid rgb(191, 191, 24);
+}
+.mainUI .rootLayoutContainer .header .subTitle {
+   color: rgb(216, 210, 210);
+   font-size: .8em;
+   padding-left: 1em;
+}
+.mainUI .rootLayoutContainer .header .btnContainer button:disabled, .infoThing .overview .btnExport:disabled {
+   opacity: .5;
+   filter: grayscale(.9);
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator[data-status="net-read"]{
+   /*rgb(0, 153, 0)*/
+   background-color: rgba(0, 153, 0, .35);
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator[data-status="net-write"]{
+   background-color: rgba(0, 153, 0, .65);
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator[data-status="db-read"]{
+   background-color: rgba(6, 133, 135, .35);
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator[data-status="db-write"]{
+   background-color: rgba(6, 133, 135, .65);
+}
+@keyframes pendingAni {
+   0% {
+      background-color: rgba(230, 146, 64, .3);
+   }
+   50% {
+      background-color: rgba(230, 146, 64, .65);
+   }
+   100% {
+      background-color: rgba(230, 146, 64, .3);
+   }
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator[data-status="pending"]{
+   animation: pendingAni 3s linear infinite;
+}
+
+.mainUI .rootLayoutContainer .header .btnContainer button.btnIndicator {
+   height: 1.5vw;
+   width: 1.5vw;
+   align-self:  center;
+   border-radius: 50%;
+   border-width: .128em;
+   border-top-color: rgba(216, 210, 210, .1);
+   border-left-color: rgba(216, 210, 210, .1);
+   border-bottom-color: transparent;
+   border-right-color: transparent;
+   box-shadow: 2px 2px 2px rgba(20, 22, 23, .8) inset;
+   background: radial-gradient(rgba(255,255,255,.08), rgba(255,255,255,.01),rgba(255,255,255,.01));
+   background-color: rgb(12, 33, 46);
+   transition: background-color .35s ease-out;
+}
+
+.mainUI .rootLayoutContainer .header .btnContainer button {
+    height: 2vw;
+    width: 2vw;
+    margin: .5em;
+}
+.mainUI .rootLayoutContainer .header .btnContainer button.btnBurger {
+   /* to give the balloon menu enough room */
+   margin-right: 25px;
+}
+.mainUI .burgerMenu .burgerMenuItem {
+   text-align: left;
+   background-color: transparent;
+   border-color: transparent;
+   color: rgba(191, 191, 24,.5);
+   font-size: .8em;
+   padding-left: 1.5em;
+}
+.mainUI .burgerMenu .burgerMenuItem[data-selected="true"]{
+   color: rgb(191, 191, 24);
+}
+
+/*
+   noiceCoreUITable default style
+*/
+.noiceCoreUITable .tableContainer {
+   box-shadow: 2px 2px 2px rgba(20, 22, 23, .3) inset;
+   background: radial-gradient(ellipse at center, rgb(150, 167, 173), rgba(150, 167, 173, .6));
+   color: rgb(24, 35, 38);
+   padding: .25em;
+   border-radius: .5em;
+   font-size: 1.25rem;
+}
+.noiceCoreUITable .hdrRow,.noiceCoreUITable .listRow {
+   margin-bottom: .128em;
+}
+.noiceCoreUITable .hdrRow .hdrCol {
+   border: 1px solid rgb(36, 36, 36);
+   padding: .25em .128em .128em .25em;
+   background-color: rgba(36, 36, 36,.1);
+   border-radius: .25em;
+}
+.noiceCoreUITable .hdrRow .hdrCol[data-sort="descending"]:before {
+   content: '\25BC';
+   opacity: .5;
+   font-size: .8em;
+}
+.noiceCoreUITable .hdrRow .hdrCol[data-sort="ascending"]:before {
+   content: '\25B2';
+   opacity: .5;
+   font-size: .8em;
+}
+.noiceCoreUITable .hdrRow .hdrCol, .noiceCoreUITable .listRow .listCol {
+   margin-right: .128em;
+   padding: .128em .128em 0 .25em;
+}
+.noiceCoreUITable .listRow span.listCol {
+   font-size: .8em;
+}
+.noiceCoreUITable .listRow span.listCol[data-locked="true"] {
+   opacity: .4;
+   text-decoration: line-through;
+   background-color: rgba(24, 35, 38, .2);
+}
+.noiceCoreUITable .listRow span.listCol[data-haserrors="true"] {
+   background: url('./gfx/dark_warning.svg');
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-color: rgba(230, 0, 161, .35);
+   padding-left: 1.5em;
+   border-radius: .25em;
+}
+
+.noiceCoreUITable .listRow[data-selected="true"] {
+   background-color: rgba(240, 240, 240,.8);
+   filter: invert(.85);
+}
+.noiceCoreUITable .footerMessage {
+   font-size: .8em;
+   font-family: Comfortaa;
+   padding-right: .25em;
+}
+.noiceCoreUITable .label{
+   font-family: Comfortaa;
+   padding-left: .25em;
+   font-weight: bold;
+}
+.noiceCoreUITable .footer .buttonContainer .btnPrefs[data-open="true"]{
+   opacity: .5;
+}
+.noiceCoreUITable .footer .buttonContainer .btnPrefs {
+   background: transparent;
+   border-color: transparent;
+   color: rgb(240, 240, 240);
+   font-size: 1em;
+}
+.noiceCoreUITable .footer .buttonContainer button.txtBtn {
+    background-color: transparent;
+    color: rgb(240, 240, 240);
+    border: .128em solid rgb(240, 240, 240);
+    border-radius: 1em;
+    font-size: .55em;
+    height: min-content;
+    margin-right: .5em;
+}
+.noiceCoreUITable .footer .buttonContainer button.txtBtn:active {
+    background-color: rgb(240, 240, 240);
+    color: rgb(22, 23, 25);
+}
+.noiceCoreUITable .footer .buttonContainer button.txtBtn:disabled {
+   opacity: .2;
+}
+.noiceCoreUITable .tablePrefEditor, .noiceCoreUITable .userPrompt, .noiceCoreUITable .exportUI {
+   background-color: rgba(24, 35, 38, .66);
+   border-radius: .5em;
+}
+.noiceCoreUITable .defaultPrefUIEditor fieldset {
+   color: rgb(240,240,240);
+   background-color: rgba(24, 35, 38, .66);
+   border-radius: 1em
+}
+.noiceCoreUITable .defaultPrefUIEditor fieldset legend {
+   font-family: Comfortaa;
+   font-weight: bolder;
+   font-size: 1.5em;
+}
+.noiceCoreUITable .defaultPrefUIEditor button.btnClose {
+   margin-right: 1.5em;
+   margin-top: .25em;
+   font-family: Comfortaa;
+   background: url('./gfx/cancel-icon-light.svg');
+   background-repeat: no-repeat;
+   background-size: contain;
+   padding-left: 1.5em;
+   color: rgb(240, 240, 240);
+   border: none;
+}
+.noiceCoreUITable .userPrompt {
+   padding: 1em;
+   border: .128em solid rgba(240, 240, 240, .8);
+}
+.noiceCoreUITable .userPrompt h2.prompt, .noiceCoreUITable .exportUI h2.prompt {
+   margin: 0;
+   font-family: Comfortaa;
+}
+.noiceCoreUITable .userPrompt div.buttonContainer, .noiceCoreUITable .exportUI div.buttonContainer {
+   text-align: center;
+}
+.noiceCoreUITable .userPrompt div.buttonContainer button, .noiceCoreUITable .exportUI div.buttonContainer button {
+   font-family: Comfortaa;
+   font-size: .8em;
+   padding: .25em .5em .25em .5em;
+   margin: .8em;
+   border-radius: .5em;
+   background-color: rgba(240, 240, 240, .8);
+   border: .128em solid rgb(20, 22, 23);
+   color: rgb(20, 22, 23);
+}
+.noiceCoreUITable .exportUI {
+   border: .128em solid rgb(240, 240, 240);
+   padding: 1em;
+   display: grid;
+}
+.noiceCoreUITable .exportUI .detail .chartBknd {
+   fill: rgb(24, 35, 38);
+   stroke: rgba(240, 240, 240, .8);
+   stroke-width: 2px;
+}
+.noiceCoreUITable .exportUI .detail {
+   display: grid;
+   grid-template-columns: 4em auto;
+   align-items: center;
+   margin: 1em;
+}
+.noiceCoreUITable .exportUI .detail .deets {
+   margin-left: .5em;
+   display: grid;
+}
+.noiceCoreUITable .exportUI .detail .deets .explainer {
+   font-style: italic;
+   font-size: .8em;
+   margin-bottom: .25em
+}
+.noiceCoreUITable .exportUI .detail .deets label {
+   font-family: Comfortaa;
+}
+.noiceCoreUITable .exportUI .detail .deets label.disabled {
+  opacity: .25;
+}
+
+/*
+    testHarness specific for noiceCoreUITable
+*/
+.noiceCoreUITable .tableContainer {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 95vw;
+ }
+
+
+ /*
+     testHarness specific for noiceCoreUITable
+ */
+ .noiceCoreUITable .tableContainer {
+     overflow-x: auto;
+     overflow-y: hidden;
+     max-width: 95vw;
+  }
+
+ .layoutTest .horizontalSplitter {
+    background-color: rgba(0, 0, 255, .25);
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+ }
+ .layoutTest .horizontalSplitter .section {
+
+ }
+ .layoutTest .horizontalSplitter .upper {
+    background-color: rgba(0, 0, 255, .25);
+    margin: .5em .5em .25em .5em;
+ }
+ .layoutTest .horizontalSplitter .lower {
+    background-color: rgba(0, 0, 255, .25);
+    margin: .25em .5em .5em .5em;
+ }
+
+ div[data-templatename="rando2Container"][data-texture="true"] {
+    background: radial-gradient(rgba(255,255,52, .3), rgba(0,255,0, .1));
+    border-radius: 1em;
+    overflow: hidden;
+    box-shadow: .1258em .2133em 4px rgba(20, 22, 23, .5) inset;
+    border-style: solid;
+    border-top-width: .128em;
+    border-left-width: .128em;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-top-color: rgba(240, 240, 240, .3);
+    border-left-color: rgba(240, 240, 240, .3);
+ }
