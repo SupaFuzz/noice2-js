@@ -5,6 +5,7 @@ import { wcScreenHolder } from '../../lib/webComponents/wcScreenHolder.js';
 import { wcBasic } from '../../lib/webComponents/wcBasic.js';
 import { wcScreen } from '../../lib/webComponents/wcScreen.js';
 import { customScreenExample } from './customScreenExample.js';
+import { wcSpinner } from '../../lib/webComponents/wcSpinner.js';
 
 /*
     document.loaded() hook
