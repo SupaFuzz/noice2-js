@@ -116,7 +116,7 @@ setContent(){
                 </div>
             </div>
             <div class="main" data-_name="main">
-                <wc-bar-chart></wc-bar-chart>
+                <wc-bar-chart data-_name="chart"></wc-bar-chart>
             </div>
         </div>
     `;
@@ -158,8 +158,6 @@ setStyleSheet(){
 initializedCallback(slf){
     // do thine one-time setups here
     // console.log("I'm here");
-
-
 };
 
 
@@ -174,6 +172,18 @@ gainFocusCallback(focusArgs, slf){
             toot(slf) (or that) to proceed
             boot(error) to abort focus change
         */
+        
+        // quick test set for the barChart
+        let barTest = [];
+        for (let i=1; i<35; i++){
+            barTest.push({
+                name: `test_${i}`,
+                value: Math.sin((Math.PI/i)*.8)*100,
+                order: i
+            });
+        }
+        that._elements.chart.bars = barTest;
+
         toot(that);
     }));
 }
