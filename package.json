@@ -22,6 +22,7 @@
       "./wcScreenHolder.js": "./lib/webComponents/wcScreenHolder.js",
       "./wcTable.js": "./lib/webComponents/wcTable.js",
       "./wcUtils.js": "./lib/func/wcUtils.js",
+      "./wcBarChart.js": "./lib/webComponents/wcBarChart.js",
       "./noiceAutonomousCustomElement.js": "./lib/noiceAutonomousCustomElement.js",
       "./noiceCore.js": "./lib/noiceCore.js",
       "./noicePGRestAPI.js": "./lib/noicePGRestAPI.js",

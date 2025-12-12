@@ -5,6 +5,7 @@ import { wcScreenHolder } from '../../lib/webComponents/wcScreenHolder.js';
 import { wcBasic } from '../../lib/webComponents/wcBasic.js';
 import { wcScreen } from '../../lib/webComponents/wcScreen.js';
 import { customScreenExample } from './customScreenExample.js';
+import { webComponentTestHarness } from './webComponentTestHarness.js';
 import { wcSpinner } from '../../lib/webComponents/wcSpinner.js';
 
 /*
@@ -30,6 +31,16 @@ document.addEventListener("DOMContentLoaded", (evt) => {
     });
     cust.setAttribute('slot', "screen");
     window.uiHolder.appendChild(cust);
+
+    // make the webComponentTestHarness and throw it all up in there
+    let th = new webComponentTestHarness({
+        name: "wcTestHarness",
+        menu_label: "Web Component Test Harness",
+        menu_order: "6",
+        fit_parent: "true"
+    });
+    th.setAttribute('slot', "screen");
+    window.uiHolder.appendChild(th);
 
     // put an are you sure? on the test2 screen
     window.uiHolder.UIs.test2.setFocus = (focusBool, focusArgs) => { return(new Promise((toot, boot) => {
