@@ -194,11 +194,10 @@ populateChart(num, animate){
     let barTest = [];
     let x = 0;
     for (let i=0; i<num; i++){
-        x = (Math.PI/num)*i;
+        x = ((Math.PI*1.25)/num)*i;
         barTest.push({
             name: `test_${i}`,
-            //value: Math.sin((Math.PI/i)*.8)*100,
-            value: Math.sin(x)*100,
+            value: (Math.sin(x)*.5 + .5)*100,
             order: i
         });
     }
@@ -213,10 +212,10 @@ populateChart(num, animate){
 */
 updateChart(num, phase){
     for (let i=0; i<num; i++){
-        let x = (Math.PI/num)*i;
+        let x = ((Math.PI*1.25)/num)*i;
         this._elements.chart.updateBar({
             name: `test_${i}`,
-            value: Math.sin(x + phase)*100,
+            value: (Math.sin(x + phase)*.5+.5)*100,
             order: i
         });
     }
@@ -233,7 +232,7 @@ animateChart(b){
         this.runAnimation = true;
         let that = this;
         function recursor(){
-            that.updateChart(that._elements.num_bars.value, Math.sin(epochTimestamp(true)/10000)*Math.PI*2);
+            that.updateChart(that._elements.num_bars.value, Math.cos(epochTimestamp(true)/3500)*Math.PI*8);
             if (that.runAnimation === true){ requestAnimationFrame(() => {recursor(); }); }
         }
         recursor();
