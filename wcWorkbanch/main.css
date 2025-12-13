@@ -36,4 +36,6 @@ body {
     --wc-screen-holder-menu-button-select-border-color: transparent;
     --wc-screen-holder-menu-button-select-background-color: rgba(237, 85, 59, .25);
     --wc-screen-holder-menu-button-select-color: rgb(237, 85, 59);
+    --wc-formelement-label-color: rgb(237, 85, 59);
+    --wc-toggle-label-color: rgb(237, 85, 59);
 }

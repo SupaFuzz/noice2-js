@@ -10,8 +10,12 @@ import { wcSpinner } from '../../lib/webComponents/wcSpinner.js';
 
 /*
     document.loaded() hook
+    12/12/25 @ 2320 NOTE: interesting. the requestAnimationFrame() below fixes safari
+    aparently on safari, DOMContentLoaded executes *before* all on-screen elements execute
+    their initializedCallback()'s -- hence the uiHolder hasn't yoink()'d it's screen slots
+    yet, hence the setFocus callback assignments throw, because window.uiHolder.UIs is empty
 */
-document.addEventListener("DOMContentLoaded", (evt) => {
+document.addEventListener("DOMContentLoaded", (evt) => { requestAnimationFrame(() => {
     // could do some stuff here if ya wanted
 
     // ui holder test stuffs
@@ -141,4 +145,4 @@ document.addEventListener("DOMContentLoaded", (evt) => {
     });
     aboutMenu.setAttribute('slot', 'status_menu_content');
     window.mainUI.appendChild(aboutMenu);
-});
+})});

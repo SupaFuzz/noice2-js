@@ -5,6 +5,9 @@
 */
 import { wcScreen } from '../../lib/webComponents/wcScreen.js';
 import { wcBarChart } from '../../lib/webComponents/wcBarChart.js';
+import { wcFormElement } from '../../lib/webComponents/wcFormElement.js';
+import { wcToggle } from '../../lib/webComponents/wcToggle.js';
+import { epochTimestamp } from '../../lib/noiceCore.js';
 class webComponentTestHarness extends wcScreen {
 
 
@@ -116,7 +119,14 @@ setContent(){
                 </div>
             </div>
             <div class="main" data-_name="main">
-                <wc-bar-chart data-_name="chart"></wc-bar-chart>
+                <div class="bcTest">
+                    <wc-bar-chart data-_name="chart"></wc-bar-chart>
+                    <div class="ctrl">
+                        <wc-form-element type="number" label="bars" label_position="left" capture_value_on="focusoutOrReturn" data-_name="num_bars"></wc-form-element>
+                        <wc-toggle data-_name="animateToggle" label="animate load" label_position="left"></wc-toggle>
+                        <wc-toggle data-_name="animatePhaseToggle" label="animate phase" label_position="left"></wc-toggle>
+                    </div>
+                </div>
             </div>
         </div>
     `;
@@ -145,6 +155,13 @@ setStyleSheet(){
         div[data-_name="main"]{
             overflow-y: auto;
         }
+        div.bcTest {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        div.ctrl {
+            font-size: 1rem;
+        }
 
     `;
 }
@@ -157,8 +174,74 @@ setStyleSheet(){
 */
 initializedCallback(slf){
     // do thine one-time setups here
-    // console.log("I'm here");
+    slf._elements.num_bars.captureValueCallback = (value, self, event) => {
+        console.log(slf._elements.animateToggle.value)
+        slf.populateChart(value, slf._elements.animateToggle.on);
+    };
+    slf._elements.animateToggle.captureValueCallback = (value) => {
+        slf.populateChart(slf._elements.num_bars.value, value);
+    };
+    slf._elements.animatePhaseToggle.captureValueCallback = (value) => {
+        slf.animateChart(value);
+    };
 };
+
+
+/*
+    populateChart(num, animate)
+*/
+populateChart(num, animate){
+    let barTest = [];
+    let x = 0;
+    for (let i=0; i<num; i++){
+        x = (Math.PI/num)*i;
+        barTest.push({
+            name: `test_${i}`,
+            //value: Math.sin((Math.PI/i)*.8)*100,
+            value: Math.sin(x)*100,
+            order: i
+        });
+    }
+    this._elements.chart.setBars(barTest, (animate === true));
+}
+
+
+
+
+/*
+    updateChart(num, phase)
+*/
+updateChart(num, phase){
+    for (let i=0; i<num; i++){
+        let x = (Math.PI/num)*i;
+        this._elements.chart.updateBar({
+            name: `test_${i}`,
+            value: Math.sin(x + phase)*100,
+            order: i
+        });
+    }
+}
+
+
+
+
+/*
+    animateChart(bool, num)
+*/
+animateChart(b){
+    if (b === true){
+        this.runAnimation = true;
+        let that = this;
+        function recursor(){
+            that.updateChart(that._elements.num_bars.value, Math.sin(epochTimestamp(true)/10000)*Math.PI*2);
+            if (that.runAnimation === true){ requestAnimationFrame(() => {recursor(); }); }
+        }
+        recursor();
+    }else{
+        this.runAnimation = false;
+    }
+}
+
 
 
 
@@ -172,17 +255,10 @@ gainFocusCallback(focusArgs, slf){
             toot(slf) (or that) to proceed
             boot(error) to abort focus change
         */
-        
+
         // quick test set for the barChart
-        let barTest = [];
-        for (let i=1; i<35; i++){
-            barTest.push({
-                name: `test_${i}`,
-                value: Math.sin((Math.PI/i)*.8)*100,
-                order: i
-            });
-        }
-        that._elements.chart.bars = barTest;
+
+        //that._elements.chart.bars = barTest;
 
         toot(that);
     }));
