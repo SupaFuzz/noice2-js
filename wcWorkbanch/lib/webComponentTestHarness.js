@@ -125,6 +125,7 @@ setContent(){
                         <wc-form-element type="number" label="bars" label_position="left" capture_value_on="focusoutOrReturn" data-_name="num_bars"></wc-form-element>
                         <wc-toggle data-_name="animateToggle" label="animate load" label_position="left"></wc-toggle>
                         <wc-toggle data-_name="animatePhaseToggle" label="animate phase" label_position="left"></wc-toggle>
+                        <wc-toggle data-_name="showLabel" label="labels" label_position="left"></wc-toggle>
                     </div>
                 </div>
             </div>
@@ -182,6 +183,9 @@ initializedCallback(slf){
     };
     slf._elements.animatePhaseToggle.captureValueCallback = (value) => {
         slf.animateChart(value);
+    };
+    slf._elements.showLabel.captureValueCallback = (value) => {
+        slf._elements.chart.show_labels = value;
     };
 };
 
