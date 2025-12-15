@@ -175,7 +175,6 @@ setStyleSheet(){
 initializedCallback(slf){
     // do thine one-time setups here
     slf._elements.num_bars.captureValueCallback = (value, self, event) => {
-        console.log(slf._elements.animateToggle.value)
         slf.populateChart(value, slf._elements.animateToggle.on);
     };
     slf._elements.animateToggle.captureValueCallback = (value) => {
@@ -199,6 +198,23 @@ populateChart(num, animate){
             name: `test_${i}`,
             value: (Math.sin(x)*.5 + .5)*100,
             order: i
+        });
+
+        // lets try an overlay
+        barTest.push({
+            name: `test_overlay_${i}`,
+            parent_name: `test_${i}`,
+            value: (Math.sin(x)*.5 + .5)*66,
+            order: i
+        });
+
+        // lets try annother overlay
+        barTest.push({
+            name: `test_overlayB_${i}`,
+            parent_name: `test_overlay_${i}`,
+            value: (Math.sin(x)*.5 + .5)*22,
+            order: i,
+            fill: "green"
         });
     }
     this._elements.chart.setBars(barTest, (animate === true));
