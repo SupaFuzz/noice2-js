@@ -201,7 +201,8 @@ populateChart(num, animate){
         barTest.push({
             name: `test_${i}`,
             value: (Math.sin(x)*.5 + .5)*100,
-            order: i
+            order: i,
+            label: `t:${i}`
         });
 
         // lets try an overlay
@@ -236,6 +237,16 @@ updateChart(num, phase){
         this._elements.chart.updateBar({
             name: `test_${i}`,
             value: (Math.sin(x + phase)*.5+.5)*100,
+            order: i
+        });
+        this._elements.chart.updateBar({
+            name: `test_overlay_${i}`,
+            value: (Math.sin(x + (phase + .25))*.5+.5)*66,
+            order: i
+        });
+        this._elements.chart.updateBar({
+            name: `test_overlayB_${i}`,
+            value: (Math.sin(x + (phase + .5))*.5+.5)*22,
             order: i
         });
     }
