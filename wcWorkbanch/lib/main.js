@@ -5,7 +5,8 @@ import { wcScreenHolder } from '../../lib/webComponents/wcScreenHolder.js';
 import { wcBasic } from '../../lib/webComponents/wcBasic.js';
 import { wcScreen } from '../../lib/webComponents/wcScreen.js';
 import { customScreenExample } from './customScreenExample.js';
-import { webComponentTestHarness } from './webComponentTestHarness.js';
+import { wcBarChartDemo } from './wcBarChartDemo.js';
+import { wcSVGCanvasDemo } from './wcSVGCanvasDemo.js';
 import { wcSpinner } from '../../lib/webComponents/wcSpinner.js';
 
 /*
@@ -36,15 +37,25 @@ document.addEventListener("DOMContentLoaded", (evt) => { requestAnimationFrame((
     cust.setAttribute('slot', "screen");
     window.uiHolder.appendChild(cust);
 
-    // make the webComponentTestHarness and throw it all up in there
-    let th = new webComponentTestHarness({
+    // make the wcBarChartDemo and throw it all up in there
+    let th = new wcBarChartDemo({
         name: "wcTestHarness",
-        menu_label: "Web Component Test Harness",
+        menu_label: "Bar Chart Demo",
         menu_order: "6",
         fit_parent: "true"
     });
     th.setAttribute('slot', "screen");
     window.uiHolder.appendChild(th);
+
+    // the svgCanvas demo
+    let sd = new wcSVGCanvasDemo({
+        name: "wcSVGCanvasDemo",
+        menu_label: "SVG Demo",
+        menu_order: "7",
+        fit_parent: "true"
+    });
+    sd.setAttribute('slot', "screen");
+    window.uiHolder.appendChild(sd);
 
     // put an are you sure? on the test2 screen
     window.uiHolder.UIs.test2.setFocus = (focusBool, focusArgs) => { return(new Promise((toot, boot) => {

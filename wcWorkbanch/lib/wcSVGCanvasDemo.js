@@ -1,19 +1,20 @@
 /*
-    webComponentTestHarness.js
+    wcSVGCanvasDemo.js
     a lil UI for playin' with webComponents
 
 */
 import { wcScreen } from '../../lib/webComponents/wcScreen.js';
-import { wcBarChart } from '../../lib/webComponents/wcBarChart.js';
+import { wcSVGCanvas } from '../../lib/webComponents/wcSVGCanvas.js';
 import { wcFormElement } from '../../lib/webComponents/wcFormElement.js';
 import { wcToggle } from '../../lib/webComponents/wcToggle.js';
 import { epochTimestamp } from '../../lib/noiceCore.js';
-class webComponentTestHarness extends wcScreen {
+import { noiceRadialPolygonPath } from '../../lib/noiceRadialPolygonPath.js';
+class wcSVGCanvasDemo extends wcScreen {
 
 
 
 
-static classID = webComponentTestHarness;
+static classID = wcSVGCanvasDemo;
 static classAttributeDefaults = {
     // needed boilerplate (it is what it is)
     disabled: { observed: true, accessor: true, type: 'bool', value: false, forceAttribute: true },
@@ -38,7 +39,7 @@ static observedAttributes = Object.keys(this.classID.classAttributeDefaults).fil
 constructor(args){
     // boilerplate
     super(args);
-    this._className = 'webComponentTestHarness';    // change me
+    this._className = 'wcSVGCanvasDemo';    // change me
     this._version = 1;
 
     // attributeChangeHandlers
@@ -88,8 +89,8 @@ constructor(args){
 
     also  boilerplate just be sure to replace the class name symbo
 */
-getAttributeDefaults(){ return(webComponentTestHarness.classAttributeDefaults); }
-getStyleDefaults(){ return(webComponentTestHarness.classStyleDefaults); }
+getAttributeDefaults(){ return(wcSVGCanvasDemo.classAttributeDefaults); }
+getStyleDefaults(){ return(wcSVGCanvasDemo.classStyleDefaults); }
 
 
 
@@ -111,16 +112,11 @@ setContent(){
         <!-- html content goes here -->
         <div class="container">
             <div class="header" data-_name="header">
-                <h2 class="title">The Lorem</h2>
-                <div class="buttonContainer">
-                    <button>Sit</button>
-                    <button>Dolor</button>
-                    <button>Ipsum</button>
-                </div>
+                <h2 class="title">wcSVGCanvas Demo</h2>
             </div>
             <div class="main" data-_name="main">
                 <div class="bcTest">
-                    <wc-bar-chart data-_name="chart"></wc-bar-chart>
+                    <wc-svgcanvas data-_name="chart"></wc-svgcanvas>
                     <div class="ctrl">
                         <wc-form-element type="number" label="bars" label_position="left" capture_value_on="focusoutOrReturn" data-_name="num_bars"></wc-form-element>
                         <wc-toggle data-_name="animateToggle" label="animate load" label_position="left"></wc-toggle>
@@ -176,101 +172,48 @@ setStyleSheet(){
 initializedCallback(slf){
     // do thine one-time setups here
     slf._elements.num_bars.captureValueCallback = (value, self, event) => {
-        slf.populateChart(value, slf._elements.animateToggle.on);
+        //slf.populateChart(value, slf._elements.animateToggle.on);
     };
     slf._elements.animateToggle.captureValueCallback = (value) => {
-        slf.populateChart(slf._elements.num_bars.value, value);
+        //slf.populateChart(slf._elements.num_bars.value, value);
     };
     slf._elements.animatePhaseToggle.captureValueCallback = (value) => {
-        slf.animateChart(value);
+        //slf.animateChart(value);
     };
     slf._elements.showLabel.captureValueCallback = (value) => {
-        slf._elements.chart.show_labels = value;
+        //slf._elements.chart.show_labels = value;
     };
+
+    // get the render signal from the svg
+    slf._elements.chart.addEventListener('render_svg', (evt) => {
+
+        // I dunno, draw a circle in the middle?
+        evt.detail.svgElement.innerHTML = `<circle r="40">`;
+
+        /*
+            LOH 1/30/26 @ 2327
+            I suppose here is where we'd wanna call some sorta external
+            function that does some drawing. So we can flip it around
+            to a different function easily.
+
+            but yeah basically we're gonna init a 2d perlin noise array
+            then we're gonna spawn a buncha noiceRadialPolygonPath's
+            then we can play with applying transformations to their
+            vertices by sampling the perlin matrix at their coordinates, etc.
+
+            aww fuckit. i at least wanna draw one before I go to bed ...
+        */
+        const path1 = new noiceRadialPolygonPath({
+            edges: 3,
+            phase: 0,
+            radius: 30
+        });
+        evt.detail.svgElement.appendChild(path1.DOMElement);
+
+    });
 };
 
 
-/*
-    populateChart(num, animate)
-*/
-populateChart(num, animate){
-    let barTest = [];
-    let x = 0;
-    for (let i=0; i<num; i++){
-        x = ((Math.PI*1.25)/num)*i;
-        barTest.push({
-            name: `test_${i}`,
-            value: (Math.sin(x)*.5 + .5)*100,
-            order: i,
-            label: `t:${i}`
-        });
-
-        // lets try an overlay
-        barTest.push({
-            name: `test_overlay_${i}`,
-            parent_name: `test_${i}`,
-            value: (Math.sin(x)*.5 + .5)*66,
-            order: i
-        });
-
-        // lets try annother overlay
-        barTest.push({
-            name: `test_overlayB_${i}`,
-            parent_name: `test_overlay_${i}`,
-            value: (Math.sin(x)*.5 + .5)*22,
-            order: i,
-            fill: "green"
-        });
-    }
-    this._elements.chart.setBars(barTest, (animate === true));
-}
-
-
-
-
-/*
-    updateChart(num, phase)
-*/
-updateChart(num, phase){
-    for (let i=0; i<num; i++){
-        let x = ((Math.PI*1.25)/num)*i;
-        this._elements.chart.updateBar({
-            name: `test_${i}`,
-            value: (Math.sin(x + phase)*.5+.5)*100,
-            order: i
-        });
-        this._elements.chart.updateBar({
-            name: `test_overlay_${i}`,
-            value: (Math.sin(x + (phase + .25))*.5+.5)*66,
-            order: i
-        });
-        this._elements.chart.updateBar({
-            name: `test_overlayB_${i}`,
-            value: (Math.sin(x + (phase + .5))*.5+.5)*22,
-            order: i
-        });
-    }
-}
-
-
-
-
-/*
-    animateChart(bool, num)
-*/
-animateChart(b){
-    if (b === true){
-        this.runAnimation = true;
-        let that = this;
-        function recursor(){
-            that.updateChart(that._elements.num_bars.value, Math.cos(epochTimestamp(true)/3500)*Math.PI*8);
-            if (that.runAnimation === true){ requestAnimationFrame(() => {recursor(); }); }
-        }
-        recursor();
-    }else{
-        this.runAnimation = false;
-    }
-}
 
 
 
@@ -500,5 +443,5 @@ get warningIcon(){return(encodeURIComponent(`<svg
 }
 
 // more boilerplate, replace the registerElement string and the className
-const _classRegistration = webComponentTestHarness.registerElement('wc-test-harness');
-export { _classRegistration as webComponentTestHarness };
+const _classRegistration = wcSVGCanvasDemo.registerElement('wc-svgcanvas-demo');
+export { _classRegistration as wcSVGCanvasDemo };
